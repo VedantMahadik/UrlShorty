@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/src/index.js"
+    "dev": "tsx src/index.ts --watch"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +18,8 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "nodemon": "^3.1.9",
-    "tsc": "^2.0.4"
+    "tsc": "^2.0.4",
+    "tsx": "^4.19.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

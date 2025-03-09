@@ -37,7 +37,7 @@ export const createShortUrl = async (url: string) => {
           data: error,
         };
       }
-      if (data.length == 0) {
+      if (!data || data.length == 0) {
         break;
       }
       short_url = makeid(10);
@@ -62,9 +62,13 @@ export const createShortUrl = async (url: string) => {
         data: "Failed to insert",
       };
     }
-    const new_url = BASE_URL + data[0].short_url + SUFFIX_URL;
-    //@ts-ignore
-    return { status: 200, data: new_url };
+    if (data && data?.length > 0) {
+      const new_url = BASE_URL + data[0].short_url + SUFFIX_URL;
+      //@ts-ignore
+      return { status: 200, data: new_url };
+    } else {
+      return { status: 400, data: "Unable to create url" };
+    }
   } catch (e) {
     // TODO: error handling
     return { status: 400, data: e };

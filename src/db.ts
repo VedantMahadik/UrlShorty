@@ -24,7 +24,6 @@ console.log(makeid(5));
 
 export const createShortUrl = async (url: string) => {
   try {
-    console.log("START");
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     let short_url = makeid(10);
     while (true) {
@@ -43,7 +42,6 @@ export const createShortUrl = async (url: string) => {
       }
       short_url = makeid(10);
     }
-    console.log("INSERTING");
 
     let { data, error } = await supabase
       .from("shorty")
@@ -58,9 +56,13 @@ export const createShortUrl = async (url: string) => {
         data: error,
       };
     }
-    console.log("data", data);
+    if (data?.length == 0) {
+      return {
+        status: 400,
+        data: "Failed to insert",
+      };
+    }
     const new_url = BASE_URL + data[0].short_url + SUFFIX_URL;
-    console.log("returns", new_url);
     //@ts-ignore
     return { status: 200, data: new_url };
   } catch (e) {
@@ -80,6 +82,12 @@ export const getUrl = async (short_url: string) => {
       return {
         status: 400,
         data: error,
+      };
+    }
+    if (data?.length == 0) {
+      return {
+        status: 400,
+        data: "No rows found.",
       };
     }
     //@ts-ignore

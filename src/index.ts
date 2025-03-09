@@ -16,12 +16,14 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/:short_url", async (req: Request, res: Response) => {
   const short_url = req.params.short_url;
   const url = await getUrl(short_url);
-  console.log(url);
   res.redirect(url.data);
 });
 
 app.post("/", async (req: Request, res: Response) => {
   let url = req.body.url;
+  if (!url || url == "") {
+    res.status(400).send("Invalid url. URL: " + url);
+  }
   const short_url = await createShortUrl(url);
   res.status(200).send({
     url: short_url,

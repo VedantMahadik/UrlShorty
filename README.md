@@ -75,6 +75,9 @@ Feel free to open issues and submit pull requests. Contributions are welcome!
 ## License
 This project is licensed under the **MIT License**.
 
+## Try it!!!
+[URLShorty](https://url-shorty-frontend.vercel.app/)
+
 ---
 🚀 **Developed by [Vedant Mahadik](https://github.com/VedantMahadik)**
 
